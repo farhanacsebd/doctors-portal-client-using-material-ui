@@ -8,7 +8,7 @@ import login from '../../../images/login.png';
 const Register = () => {
 
     const [loginData, setLoginData] = useState({});
-    const { registerUser, isLoading } = useAuth();
+    const { user, registerUser, isLoading } = useAuth();
 
 
     const handleOnChange = e => {
