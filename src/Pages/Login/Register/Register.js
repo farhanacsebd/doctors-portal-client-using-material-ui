@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import login from '../../../images/login.png';
 
-const Login = () => {
+const Register = () => {
 
     const [loginData, setLoginData] = useState({});
 
@@ -19,6 +19,12 @@ const Login = () => {
     }
 
     const handleLoginSubmit = e => {
+
+        if (loginData.password !== loginData.password2) {
+            alert("password doesn't match");
+            return;
+        }
+
         alert("submitted")
 
         e.preventDefault();
@@ -29,7 +35,7 @@ const Login = () => {
             <Grid container spacing={2}>
 
                 <Grid sx={{ mt: 8 }} item xs={12} md={6}>
-                    <Typography variant="body1" gutterBottom>Login
+                    <Typography variant="body1" gutterBottom>Register
                     </Typography>
                     <form onSubmit={handleLoginSubmit}>
                         <TextField
@@ -37,6 +43,7 @@ const Login = () => {
                             id="standard-basic"
                             label="Your Email"
                             name="email"
+                            type="email"
                             onChange={handleOnChange}
                             variant="standard" />
 
@@ -48,16 +55,24 @@ const Login = () => {
                             name="password"
                             onChange={handleOnChange}
                             variant="standard" />
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-basic"
+                            label="Retype Your Password"
+                            type="password"
+                            name="password2"
+                            onChange={handleOnChange}
+                            variant="standard" />
 
                         <Button sx={{ width: '75%', m: 3 }}
                             type="submit"
-                            variant="contained">Login</Button>
+                            variant="contained">Registration</Button>
 
-                        <NavLink style={{ textDecoration: "None" }} to="/Register">
+                        <NavLink style={{ textDecoration: "None" }} to="/Login">
 
                             <Button sx={{ width: '75%', m: 1 }}
                                 type="submit"
-                                variant="text">New User ? Please Registration</Button>
+                                variant="text">Already Registered ? Please Login</Button>
                         </NavLink>
 
                     </form>
@@ -71,4 +86,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
