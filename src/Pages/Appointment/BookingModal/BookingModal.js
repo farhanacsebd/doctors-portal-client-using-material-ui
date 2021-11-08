@@ -49,6 +49,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                         {name}
                     </Typography>
                     <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+
                         <form onSubmit={handleBookingSubmit}>
                             <TextField
                                 disabled
