@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, NavLink } from 'react-router-dom';
 
 const Navigation = () => {
+    const { user, logOut } = useState();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -25,9 +26,14 @@ const Navigation = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Doctor Portal
                     </Typography>
-                    <Link to='/appointment'>                    <Button color="inherit">Appointment</Button>
+                    <Link style={{ textDecoration: 'none', color: 'white' }} to='/appointment'>                    <Button color="inherit">Appointment</Button>
                     </Link>
-                    <NavLink to="/login"> <Button color="inherit">Login</Button> </NavLink>
+                    {
+                        user?.email ? <Button onClick={logOut} color="inherit">LogOut</Button> :
+                            <NavLink style={{ textDecoration: 'none', color: 'white' }} to="/login">
+                                <Button color="inherit">Login</Button>
+                            </NavLink>
+                    }
 
                 </Toolbar>
             </AppBar>
