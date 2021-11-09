@@ -7,7 +7,7 @@ import login from '../../../images/login.png';
 const Login = () => {
 
     const [loginData, setLoginData] = useState({});
-    const { user, loginUser, isLoading, authError } = useAuth();
+    const { user, loginUser, isLoading, authError, signInWithGoogle } = useAuth();
 
     const location = useLocation();
     const history = useHistory();
@@ -28,6 +28,11 @@ const Login = () => {
         e.preventDefault();
     }
 
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle(location, history)
+    }
+
     return (
         <Container>
             <Grid container spacing={2}>
@@ -35,7 +40,7 @@ const Login = () => {
                 <Grid sx={{ mt: 8 }} item xs={12} md={6}>
                     <Typography variant="body1" gutterBottom>Login
                     </Typography>
-                    <form onSubmit={handleLoginSubmit}>
+                    {!isLoading && <form onSubmit={handleLoginSubmit}>
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
@@ -63,7 +68,13 @@ const Login = () => {
                                 type="submit"
                                 variant="text">New User ? Please Registration</Button>
                         </NavLink>
-                    </form>
+
+                    </form>}
+                    <br />
+                    <br />
+                    {!isLoading && <Button onClick={handleGoogleSignIn} sx={{ m: 1 }}
+                        type="submit"
+                        variant="contained">Google SignIn</Button>} <br /><br />
                     {
                         isLoading && <CircularProgress color="secondary" />
 

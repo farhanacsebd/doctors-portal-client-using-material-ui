@@ -1,6 +1,6 @@
 import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import login from '../../../images/login.png';
 // import './Register.css';
@@ -8,10 +8,12 @@ import login from '../../../images/login.png';
 const Register = () => {
 
     const [loginData, setLoginData] = useState({});
+
     const { user, registerUser, isLoading, authError } = useAuth();
 
+    const history = useHistory();
 
-    const handleOnChange = e => {
+    const handleOnBlur = e => {
         const field = e.target.name;
         const value = e.target.value;
         // console.log(field, value);
@@ -27,7 +29,7 @@ const Register = () => {
             alert("password doesn't match");
             return;
         }
-        registerUser(loginData.email, loginData.password)
+        registerUser(loginData.email, loginData.password, loginData.name, history)
 
 
         e.preventDefault();
@@ -44,10 +46,17 @@ const Register = () => {
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
+                            label="Your Name"
+                            name="name"
+                            onChange={handleOnBlur}
+                            variant="standard" />
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-basic"
                             label="Your Email"
                             name="email"
                             type="email"
-                            onChange={handleOnChange}
+                            onChange={handleOnBlur}
                             variant="standard" />
 
                         <TextField
@@ -56,7 +65,7 @@ const Register = () => {
                             label="Your Password"
                             type="password"
                             name="password"
-                            onChange={handleOnChange}
+                            onChange={handleOnBlur}
                             variant="standard" />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -64,7 +73,7 @@ const Register = () => {
                             label="Retype Your Password"
                             type="password"
                             name="password2"
-                            onChange={handleOnChange}
+                            onChange={handleOnBlur}
                             variant="standard" />
 
                         <Button sx={{ width: '75%', m: 3 }}
