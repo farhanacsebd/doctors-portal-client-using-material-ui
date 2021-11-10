@@ -54,11 +54,14 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                if (data.insertedId) {
+                    // setBookingSuccess(true);
+                    handleBookingClose();
+                }
             });
 
 
-        handleBookingClose();
+        // handleBookingClose();
         e.preventDefault();
     }
 
