@@ -15,12 +15,18 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { Button, Grid } from '@mui/material';
+import Calender from '../../Home/Shared/Navigation/Calender/Calender';
+import Appointments from '../Appointments/Appointments';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const [date, setDate] = React.useState(new Date())
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -30,6 +36,8 @@ function Dashboard(props) {
         <div>
             <Toolbar />
             <Divider />
+            <Link style={{ textDecoration: 'none', color: 'gray' }} to='/appointment'>                    <Button color="inherit">Appointment</Button>
+            </Link>
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem button key={text}>
@@ -107,18 +115,21 @@ function Dashboard(props) {
             >
                 <Toolbar />
                 <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                    enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                    imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                    Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                    Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                    nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                    leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                    feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                    consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                    sapien faucibus et molestie ac.
+                    <Grid container spacing={2}>
+                        <Grid item xs={6} md={8}>
+                            <Calender
+                                date={date}
+                                setDate={setDate}
+
+                            ></Calender>
+                        </Grid>
+                        <Grid item xs={6} md={4}>
+                            <Appointments
+                                date={date}
+                            ></Appointments>
+                        </Grid>
+
+                    </Grid>
                 </Typography>
 
             </Box>
