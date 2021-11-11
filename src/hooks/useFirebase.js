@@ -1,5 +1,5 @@
 import initializeFirebase from "../Pages/Login/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, signInWithEmailAndPassword, updateProfile, getIdToken } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 
@@ -11,7 +11,8 @@ const useFirebase = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState({});
     const [authError, setAuthError] = useState('');
-    const [admin, setAdmin] = useState(false)
+    const [admin, setAdmin] = useState(false);
+    const [token, setToken] = useState('');
 
 
     const auth = getAuth();
@@ -95,6 +96,11 @@ const useFirebase = () => {
             if (user) {
 
                 setUser(user)
+                getIdToken(user)
+                    .then(idToken => {
+                        setToken(idToken);
+                    })
+
             } else {
                 setUser({})
             }
@@ -139,7 +145,7 @@ const useFirebase = () => {
 
     return {
         user,
-        registerUser, admin, logOut, loginUser, isLoading, authError, signInWithGoogle,
+        registerUser, admin, logOut, loginUser, isLoading, token, authError, signInWithGoogle,
     }
 };
 
